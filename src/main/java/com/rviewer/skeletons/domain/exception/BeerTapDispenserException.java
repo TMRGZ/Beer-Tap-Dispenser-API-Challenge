@@ -1,4 +1,4 @@
-package com.rviewer.skeletons.application.exception;
+package com.rviewer.skeletons.domain.exception;
 
 public class BeerTapDispenserException extends RuntimeException {
     public BeerTapDispenserException() {
