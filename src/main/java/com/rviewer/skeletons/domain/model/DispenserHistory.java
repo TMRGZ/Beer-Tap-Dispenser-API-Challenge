@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 public class DispenserHistory {
 
-    private Long id;
+    private String id;
 
     private Double totalSpent;
 
