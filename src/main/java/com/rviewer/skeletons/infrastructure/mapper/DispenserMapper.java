@@ -30,7 +30,15 @@ public class DispenserMapper {
 
     private void setupDaoToDomain() {
         TypeMap<DispenserDao, Dispenser> daoToDomainMapper = this.modelMapper.createTypeMap(DispenserDao.class, Dispenser.class);
-        Converter<List<DispenserHistoryDao>, List<DispenserHistory>> daoToDomainConverter = c -> dispenserHistoryMapper.map(c.getSource().toArray(new DispenserHistoryDao[0]));
+        Converter<List<DispenserHistoryDao>, List<DispenserHistory>> daoToDomainConverter = c -> {
+
+            if (c.getSource() != null) {
+                return dispenserHistoryMapper.map(c.getSource().toArray(new DispenserHistoryDao[0]));
+            } else {
+                return null;
+            }
+
+        };
         daoToDomainMapper.addMappings(
                 mapper -> mapper.using(daoToDomainConverter).map(DispenserDao::getDispenserHistory, Dispenser::setDispenserHistory)
         );
@@ -38,7 +46,15 @@ public class DispenserMapper {
 
     private void setupDomainToDao() {
         TypeMap<Dispenser, DispenserDao> domainToDaoMapper = this.modelMapper.createTypeMap(Dispenser.class, DispenserDao.class);
-        Converter<List<DispenserHistory>, List<DispenserHistoryDao>> domainToDaoConverter = c -> dispenserHistoryMapper.map(c.getSource().toArray(new DispenserHistory[0]));
+        Converter<List<DispenserHistory>, List<DispenserHistoryDao>> domainToDaoConverter = c -> {
+
+            if (c.getSource() != null) {
+                return dispenserHistoryMapper.map(c.getSource().toArray(new DispenserHistory[0]));
+            } else {
+                return null;
+            }
+
+        };
         domainToDaoMapper.addMappings(
                 mapper -> mapper.using(domainToDaoConverter).map(Dispenser::getDispenserHistory, DispenserDao::setDispenserHistory)
         );
