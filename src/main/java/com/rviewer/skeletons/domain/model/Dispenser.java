@@ -11,7 +11,7 @@ public class Dispenser {
 
     private String id;
 
-    private Long flowVolume;
+    private Double flowVolume;
 
     private List<DispenserHistory> dispenserHistory;
 
