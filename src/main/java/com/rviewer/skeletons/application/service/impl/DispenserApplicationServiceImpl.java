@@ -8,13 +8,14 @@ import com.rviewer.skeletons.application.response.PostCreateDispenserResponse;
 import com.rviewer.skeletons.application.service.DispenserApplicationService;
 import com.rviewer.skeletons.domain.model.Dispenser;
 import com.rviewer.skeletons.domain.model.DispenserAction;
-import com.rviewer.skeletons.domain.model.DispenserHistory;
 import com.rviewer.skeletons.domain.services.DispenserService;
+import com.rviewer.skeletons.utils.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +31,6 @@ public class DispenserApplicationServiceImpl implements DispenserApplicationServ
         Dispenser spending = dispenserService.getSpending(id);
         GetDispenserSpendingResponse response = new GetDispenserSpendingResponse();
 
-        double amount = spending.getDispenserHistory().stream()
-                .mapToDouble(DispenserHistory::getTotalSpent)
-                .sum();
-
         List<DispenserSpendingUsage> usages = spending.getDispenserHistory().stream()
                 .map(dispenserHistory -> {
                     DispenserSpendingUsage usage = new DispenserSpendingUsage();
@@ -47,6 +44,10 @@ public class DispenserApplicationServiceImpl implements DispenserApplicationServ
 
                     return usage;
                 }).collect(Collectors.toList());
+
+        double amount = usages.stream()
+                .mapToDouble(DispenserSpendingUsage::getTotalSpent)
+                .sum();
 
         response.setAmount(amount);
         response.setUsages(usages);
