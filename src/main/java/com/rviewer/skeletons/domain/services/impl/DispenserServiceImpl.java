@@ -9,6 +9,7 @@ import com.rviewer.skeletons.domain.model.DispenserHistory;
 import com.rviewer.skeletons.domain.repository.DispenserRepository;
 import com.rviewer.skeletons.domain.services.DispenserService;
 import com.rviewer.skeletons.utils.Constants;
+import com.rviewer.skeletons.utils.Utilities;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -42,8 +43,6 @@ public class DispenserServiceImpl implements DispenserService {
             case Constants.DISPENSER_CLOSED_STATUS -> closeDispenser(dispenser, dispenserAction.getUpdatedAt());
         }
     }
-
-
     private void closeDispenser(Dispenser dispenser, Date closeDate) {
         Optional<DispenserHistory> dispenserHistoryOptional = dispenser.getDispenserHistory().stream()
                 .max(Comparator.comparing(DispenserHistory::getOpenedAt));
@@ -55,6 +54,8 @@ public class DispenserServiceImpl implements DispenserService {
         }
 
         dispenserHistory.setClosedAt(closeDate);
+        dispenserHistory.setTotalSpent(
+                Utilities.calculateTotalSpent(dispenser.getFlowVolume(), dispenserHistory.getOpenedAt(), dispenserHistory.getClosedAt()));
 
         dispenserRepository.save(dispenser);
     }

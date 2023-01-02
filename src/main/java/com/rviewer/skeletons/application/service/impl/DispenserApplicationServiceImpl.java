@@ -40,7 +40,10 @@ public class DispenserApplicationServiceImpl implements DispenserApplicationServ
                     usage.setOpenedAt(dispenserHistory.getOpenedAt());
                     usage.setClosedAt(dispenserHistory.getClosedAt());
                     usage.setFlowVolume(spending.getFlowVolume());
-                    usage.setTotalSpent(dispenserHistory.getTotalSpent());
+                    usage.setTotalSpent(
+                            dispenserHistory.getTotalSpent() != null
+                                    ? dispenserHistory.getTotalSpent()
+                                    : Utilities.calculateTotalSpent(spending.getFlowVolume(), dispenserHistory.getOpenedAt(), new Date()));
 
                     return usage;
                 }).collect(Collectors.toList());
