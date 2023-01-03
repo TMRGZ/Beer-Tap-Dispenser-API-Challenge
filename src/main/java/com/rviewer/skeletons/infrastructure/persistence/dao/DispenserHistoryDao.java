@@ -16,8 +16,8 @@ import java.util.Date;
 public class DispenserHistoryDao {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Column(name = "TOTAL_SPENT", nullable = false)

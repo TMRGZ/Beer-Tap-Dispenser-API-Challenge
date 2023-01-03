@@ -43,6 +43,7 @@ public class DispenserServiceImpl implements DispenserService {
             case Constants.DISPENSER_CLOSED_STATUS -> closeDispenser(dispenser, dispenserAction.getUpdatedAt());
         }
     }
+
     private void closeDispenser(Dispenser dispenser, Date closeDate) {
         Optional<DispenserHistory> dispenserHistoryOptional = dispenser.getDispenserHistory().stream()
                 .max(Comparator.comparing(DispenserHistory::getOpenedAt));
