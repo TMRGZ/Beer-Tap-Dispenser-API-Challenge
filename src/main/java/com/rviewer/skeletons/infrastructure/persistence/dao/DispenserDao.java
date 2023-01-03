@@ -18,7 +18,7 @@ public class DispenserDao {
     private String id;
 
     @Column(name = "FLOW_VOLUME", nullable = false)
-    private Long flowVolume;
+    private Double flowVolume;
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DISPENSER_ID")

@@ -72,14 +72,19 @@ class DispenserServiceImplUnitTest {
     void setDispenserStatusToCloseUnitTest() {
         Dispenser dispenser = new Dispenser();
         ArrayList<DispenserHistory> dispenserHistory = new ArrayList<>();
-        dispenserHistory.add(new DispenserHistory());
+        DispenserHistory history = new DispenserHistory();
+        history.setOpenedAt(new Date());
 
+        dispenserHistory.add(history);
+
+        dispenser.setFlowVolume(1.0);
         dispenser.setDispenserHistory(dispenserHistory);
 
         Mockito.when(dispenserRepository.findById(Mockito.anyString())).thenReturn(Optional.of(dispenser));
 
         DispenserAction dispenserAction = new DispenserAction();
         dispenserAction.setStatus(Constants.DISPENSER_CLOSED_STATUS);
+        dispenserAction.setUpdatedAt(new Date());
 
         dispenserService.setDispenserStatus("TEST", dispenserAction);
 
