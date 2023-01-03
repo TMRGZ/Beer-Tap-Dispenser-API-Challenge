@@ -20,7 +20,7 @@ public class DispenserHistoryDao {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "TOTAL_SPENT", nullable = false)
+    @Column(name = "TOTAL_SPENT")
     private Double totalSpent;
 
     @Column(name = "OPENED_AT", nullable = false)
