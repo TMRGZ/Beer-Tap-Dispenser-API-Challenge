@@ -41,6 +41,7 @@ public class DispenserServiceImpl implements DispenserService {
         switch (dispenserAction.getStatus().toUpperCase()) {
             case Constants.DISPENSER_OPENED_STATUS -> openDispenser(dispenser, dispenserAction.getUpdatedAt());
             case Constants.DISPENSER_CLOSED_STATUS -> closeDispenser(dispenser, dispenserAction.getUpdatedAt());
+            default -> {}
         }
     }
 
